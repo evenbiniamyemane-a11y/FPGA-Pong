@@ -3,11 +3,11 @@
 module video_generator (
     input wire visible,
     input wire clk,
-    input wire btn_up,     // Fixed: changed semicolon to comma
+    input wire btn_up,     
     input wire btn_down,
     input wire [9:0] x,
     input wire [9:0] y,
-    output reg [3:0] r,    // Fixed: changed to reg for assignment in always block
+    output reg [3:0] r,    
     output reg [3:0] g,
     output reg [3:0] b
 );
@@ -21,17 +21,14 @@ module video_generator (
     reg [9:0] ball_x = 320;
     reg [9:0] ball_y = 240;
     reg ball_dir_x = 1;
-    reg ball_dir_y = 1;    // Fixed: completed missing assignment
+    reg ball_dir_y = 1;    
 
-    // Added: Missing paddle position registers
     reg [9:0] Ipaddle_y = 210; 
     reg [9:0] rpaddle_y = 210;
 
-    // Added: Generate a single-cycle pulse to update the frame logic
     // This triggers once per frame when the beam is at the top-left corner
     wire update_frame = (x == 799 && y == 524); 
     
-    // Fixed: Placed game logic inside a clocked sequential block
     always @(posedge clk) begin
         if (update_frame) begin
             
@@ -41,7 +38,7 @@ module video_generator (
             
             // Top and Bottom screen collisions
             if(ball_y < 5) begin
-                ball_dir_y <= 1; // Fixed: typo ball_div_y
+                ball_dir_y <= 1; 
             end
             else if(ball_y >= (SCREEN_H - BALL_SIZE - 5)) begin
                 ball_dir_y <= 0;
